@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Shop - Premium Store</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2196f3 !important;
+        }
+        
+        .nav-link {
+            color: #555 !important;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: #2196f3 !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+        
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-section p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-shop {
+            background-color: white;
+            color: #667eea;
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-shop:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2196f3;
+            margin-bottom: 10px;
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        /* Search Box */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .search-box input:focus {
+            border-color: #2196f3;
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
+        }
+        
+        .search-box .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #2196f3;
+            font-size: 1.3rem;
+        }
+        
+        .search-results {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Sort Controls */
+        .sort-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .sort-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            color: #555;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .sort-btn:hover {
+            border-color: #2196f3;
+            color: #2196f3;
+            background-color: #e3f2fd;
+        }
+        
+        .sort-btn.active {
+            background-color: #2196f3;
+            color: white;
+            border-color: #2196f3;
+        }
+        
+        .sort-btn i {
+            font-size: 1rem;
+        }
+        
+        .sort-label {
+            color: #666;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        
+        /* Export Button */
+        .export-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .btn-export {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+        
+        .btn-export i {
+            font-size: 1rem;
+        }
+        
+        /* Create Button */
+        .btn-create {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+        
+        .btn-create:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-create i {
+            font-size: 1rem;
+        }
+        
+        /* Pagination */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .items-per-page {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .items-per-page label {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .items-per-page select {
+            padding: 8px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .items-per-page select:focus {
+            border-color: #2196f3;
+        }
+        
+        .pagination {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .pagination li {
+            margin: 0;
+        }
+        
+        .pagination button {
+            padding: 8px 15px;
+            border: 2px solid #e0e0e0;
+            background-color: white;
+            color: #555;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            min-width: 40px;
+        }
+        
+        .pagination button:hover:not(:disabled) {
+            border-color: #2196f3;
+            color: #2196f3;
+            background-color: #e3f2fd;
+        }
+        
+        .pagination button.active {
+            background-color: #2196f3;
+            color: white;
+            border-color: #2196f3;
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-info {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #2196f3 0%, #64b5f6 100%);
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .product-detail-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-field {
+            margin-bottom: 20px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .detail-value {
+            padding: 12px 15px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .detail-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .detail-input:focus {
+            outline: none;
+            border-color: #2196f3;
+        }
+        
+        .detail-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            padding: 20px 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .btn-modal {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .btn-edit {
+            background-color: #2196f3;
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            background-color: #1976d2;
+            transform: translateY(-2px);
+        }
+        
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-save:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .product-card {
+            cursor: pointer;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: visible;
+            transition: all 0.3s;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.2);
+        }
+        
+        /* Description Tooltip */
+        .product-description {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            width: 280px;
+            max-width: 90vw;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .product-description::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .product-card:hover .product-description {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+        }
+        
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .product-id-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(33, 150, 243, 0.9);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .product-card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-category {
+            font-size: 0.85rem;
+            color: #2196f3;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            min-height: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2196f3;
+        }
+        
+        .btn-add-cart {
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-add-cart:hover {
+            background-color: #1976d2;
+            transform: scale(1.05);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: linear-gradient(135deg, #2196f3 0%, #64b5f6 100%);
+            color: white;
+            padding: 30px 0;
+            margin: 60px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: #2196f3;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 80px;
+        }
+        
+        .footer h5 {
+            color: #2196f3;
+            margin-bottom: 20px;
+        }
+        
+        .footer-link {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: #2196f3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-shop"></i> Product Store
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn-create" onclick="openCreateModal()">
+                            <i class="bi bi-plus-circle"></i> Create New
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn-export" onclick="exportToCSV()" style="margin-left: 15px;">
+                            <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Welcome to Our Store</h1>
+            <p>Discover amazing products at great prices</p>
+            <button class="btn btn-shop" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">
+                Shop Now <i class="bi bi-arrow-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalProducts">0</span>
+                        <span class="stat-label">Products</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalCategories">0</span>
+                        <span class="stat-label">Categories</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Quality</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section id="products" class="container">
+        <div class="section-title">
+            <h2>Best Seller Products</h2>
+            <p>Browse our collection of premium products</p>
+        </div>
+        
+        <!-- Search Box -->
+        <div class="search-container">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search products by name..." 
+                    autocomplete="off"
+                >
+                <i class="bi bi-search search-icon"></i>
+            </div>
+        </div>
+        
+        <!-- Search Results Info -->
+        <div id="searchResults" class="search-results" style="display: none;"></div>
+        
+        <!-- Sort Controls -->
+        <div class="sort-container">
+            <span class="sort-label"><i class="bi bi-sort-down"></i> Sort by:</span>
+            <button class="sort-btn" id="sortTitleAsc" onclick="sortProducts('title', 'asc')">
+                <i class="bi bi-sort-alpha-down"></i> Title (A-Z)
+            </button>
+            <button class="sort-btn" id="sortTitleDesc" onclick="sortProducts('title', 'desc')">
+                <i class="bi bi-sort-alpha-up"></i> Title (Z-A)
+            </button>
+            <button class="sort-btn" id="sortPriceAsc" onclick="sortProducts('price', 'asc')">
+                <i class="bi bi-sort-numeric-down"></i> Price (Low-High)
+            </button>
+            <button class="sort-btn" id="sortPriceDesc" onclick="sortProducts('price', 'desc')">
+                <i class="bi bi-sort-numeric-up"></i> Price (High-Low)
+            </button>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Loading products...</p>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="row" style="display: none;">
+            <!-- Products will be inserted here -->
+        </div>
+        
+        <!-- Pagination -->
+        <div id="paginationContainer" class="pagination-container" style="display: none;">
+            <div class="items-per-page">
+                <label for="itemsPerPage">Items per page:</label>
+                <select id="itemsPerPage">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            
+            <div class="page-info" id="pageInfo"></div>
+            
+            <ul class="pagination" id="pagination">
+                <!-- Pagination buttons will be inserted here -->
+            </ul>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="alert alert-danger text-center" style="display: none;" role="alert">
+            <i class="bi bi-exclamation-triangle"></i> 
+            <strong>Error!</strong> Unable to load products. Please try again later.
+        </div>
+    </section>
+    
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="bi bi-box-seam"></i> Product Details</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Product" class="product-detail-image">
+                
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-hash"></i> Product ID</label>
+                    <div class="detail-value" id="modalId"></div>
+                </div>
+                
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-tag"></i> Title</label>
+                    <div class="detail-value" id="modalTitleView"></div>
+                    <input type="text" class="detail-input" id="modalTitleEdit" style="display: none;">
+                </div>
+                
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-currency-dollar"></i> Price</label>
+                    <div class="detail-value" id="modalPriceView"></div>
+                    <input type="number" class="detail-input" id="modalPriceEdit" style="display: none;">
+                </div>
+                
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-folder"></i> Category</label>
+                    <div class="detail-value" id="modalCategory"></div>
+                </div>
+                
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-text-paragraph"></i> Description</label>
+                    <div class="detail-value" id="modalDescriptionView"></div>
+                    <textarea class="detail-input detail-textarea" id="modalDescriptionEdit" style="display: none;"></textarea>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal btn-edit" id="btnEdit" onclick="toggleEditMode()"><i class="bi bi-pencil"></i> Edit</button>
+                <button class="btn-modal btn-save" id="btnSave" onclick="saveProduct()" style="display: none;"><i class="bi bi-check-circle"></i> Save</button>
+                <button class="btn-modal btn-cancel" id="btnCancel" onclick="cancelEdit()" style="display: none;"><i class="bi bi-x-circle"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Create Product Modal -->
+    <div id="createModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="bi bi-plus-circle"></i> Create New Product</h3>
+                <button class="modal-close" onclick="closeCreateModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-tag"></i> Title *</label>
+                    <input type="text" class="detail-input" id="createTitle" placeholder="Enter product title">
+                </div>
+                
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-currency-dollar"></i> Price *</label>
+                    <input type="number" class="detail-input" id="createPrice" placeholder="Enter price" min="0" step="0.01">
+                </div>
+                
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-text-paragraph"></i> Description</label>
+                    <textarea class="detail-input detail-textarea" id="createDescription" placeholder="Enter product description"></textarea>
+                </div>
+                
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-folder"></i> Category ID *</label>
+                    <input type="number" class="detail-input" id="createCategoryId" placeholder="Enter category ID (e.g., 1)" min="1">
+                    <small style="color: #666; display: block; margin-top: 5px;">Common IDs: 1=Clothes, 2=Electronics, 3=Furniture, 4=Shoes, 5=Others</small>
+                </div>
+                
+                <div class="detail-field">
+                    <label class="detail-label"><i class="bi bi-image"></i> Image URLs (comma-separated)</label>
+                    <textarea class="detail-input" id="createImages" placeholder="Enter image URLs separated by commas" rows="3"></textarea>
+                    <small style="color: #666; display: block; margin-top: 5px;">Example: https://example.com/image1.jpg, https://example.com/image2.jpg</small>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal btn-save" onclick="createProduct()"><i class="bi bi-check-circle"></i> Create Product</button>
+                <button class="btn-modal btn-cancel" onclick="closeCreateModal()"><i class="bi bi-x-circle"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p class="text-muted">Your trusted online store for quality products at competitive prices.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <a href="#" class="footer-link">Shop</a>
+                    <a href="#" class="footer-link">Categories</a>
+                    <a href="#" class="footer-link">About</a>
+                    <a href="#" class="footer-link">Contact</a>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Info</h5>
+                    <p class="text-muted">
+                        <i class="bi bi-envelope"></i> info@productstore.com<br>
+                        <i class="bi bi-telephone"></i> +1 (800) 123-4567<br>
+                        <i class="bi bi-geo-alt"></i> 123 Shop Street, City
+                    </p>
+                </div>
+            </div>
+            <hr style="border-color: #444; margin: 30px 0 20px;">
+            <div class="text-center text-muted">
+                <p>&copy; 2026 Product Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main Script -->
+    <script src="main.js"></script>
+</body>
+</html>
